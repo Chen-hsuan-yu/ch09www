@@ -32,12 +32,5 @@ class PostForm(forms.ModelForm):
         self.fields['del_pass'].label = '設定密碼'
 
 class LoginForm(forms.Form):
-    COLORS = [
-        ['紅', '紅'],
-        ['黃', '黃'],
-        ['綠', '綠'],
-        ['紫', '紫'],
-        ['藍', '藍'],
-    ]
-    user_name = forms.CharField(label='你的姓名', max_length=10)
-    user_color = forms.ChoiceField(label='幸運顏色', choices=COLORS)
+    username = forms.CharField(label='姓名', max_length=10)
+    password = forms.CharField(label='密碼', widget=forms.PasswordInput())
