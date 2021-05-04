@@ -1,12 +1,14 @@
 from django.db import models
 
 class Mood(models.Model):
+    id = models.AutoField(primary_key=True)
     status = models.CharField(max_length=10, null=False)
 
     def __str__(self):
         return self.status
 
 class Post(models.Model):
+    id = models.AutoField(primary_key=True)
     mood = models.ForeignKey('Mood', on_delete=models.CASCADE)
     nickname = models.CharField(max_length=10, default='不願意透漏身份的人')
     message = models.TextField(null=False)
@@ -16,3 +18,4 @@ class Post(models.Model):
     
     def __str__(self):
         return self.message
+

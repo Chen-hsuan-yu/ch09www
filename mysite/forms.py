@@ -30,3 +30,14 @@ class PostForm(forms.ModelForm):
         self.fields['nickname'].label = '你的暱稱'
         self.fields['message'].label = '心情留言'
         self.fields['del_pass'].label = '設定密碼'
+
+class LoginForm(forms.Form):
+    COLORS = [
+        ['紅', '紅'],
+        ['黃', '黃'],
+        ['綠', '綠'],
+        ['紫', '紫'],
+        ['藍', '藍'],
+    ]
+    user_name = forms.CharField(label='你的姓名', max_length=10)
+    user_color = forms.ChoiceField(label='幸運顏色', choices=COLORS)

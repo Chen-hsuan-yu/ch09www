@@ -24,4 +24,6 @@ urlpatterns = [
     path('post/', views.posting),
     path('contact/', views.contact),
     path('post2db/', views.post2db),
+    path('login/', views.login),
+    path('logout/', views.logout),
 ]
