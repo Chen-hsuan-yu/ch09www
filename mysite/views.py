@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.shortcuts import redirect
+from django.contrib.sessions.models import Session
 import json
 import urllib
 from django.conf import settings
@@ -130,5 +131,21 @@ def login(request):
     return render(request, 'login.html', locals())
 
 def logout(request):
-    request.session['username'] = None
+    if 'username' in request.session:
+        Session.objects.all().delete()
+        return redirect('/login/')
     return redirect('/')
+
+
+def userinfo(request):
+    if 'username' in request.session:
+        username = request.session['username']
+    else:
+        return redirect('/login/')
+
+    try:
+        userinfo = models.User.objects.get(name=username)
+    except:
+        pass
+
+    return render(request, 'userinfo.html', locals())
