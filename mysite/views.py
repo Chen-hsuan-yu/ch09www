@@ -70,7 +70,9 @@ def posting(request):
     else:
         post_form = forms.DiaryForm()
         messages.add_message(request, messages.INFO, '要張貼日記，每一個欄位都要填....')
-    return render(request, 'posting.html', locals()
+    return render(request, 'posting.html', locals())
+
+
 def contact(request):
     if request.method == 'POST':
         form = forms.ContactForm(request.POST)

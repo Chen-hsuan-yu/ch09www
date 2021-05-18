@@ -50,7 +50,7 @@ class DiaryForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(DiaryForm, self).__init__(*args, **kwargs)
-        self.fields['user'].label = '使用者'
+        #self.fields['user'].label = '使用者'
         self.fields['budget'].label = '今日花費(元)'
         self.fields['weight'].label = '今日體重(KG)'
         self.fields['note'].label = '心情留言'
