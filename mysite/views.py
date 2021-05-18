@@ -1,3 +1,4 @@
+
 from django.shortcuts import render
 from django.shortcuts import redirect
 from django.contrib.sessions.models import Session
@@ -134,12 +135,14 @@ def login(request):
     return render(request, 'login.html', locals())
 
 def logout(request):
-    auth.logout(request)
-    messages.add_message(request, messages.INFO, '成功登出了')
+    if 'username' in request.session:
+        Session.objects.all().delete()
+        return redirect('/login/')
     return redirect('/')
 
 
 @login_required(login_url='/login/')
+
 def userinfo(request):
     if request.user.is_authenticated:
         username = request.user.username
