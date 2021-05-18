@@ -1,4 +1,6 @@
-
+from django.contrib.auth import authenticate
+from django.contrib import auth
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 from django.shortcuts import redirect
 from django.contrib.sessions.models import Session
@@ -134,21 +136,20 @@ def login(request):
         login_form = forms.LoginForm()
     return render(request, 'login.html', locals())
 
+
+
 def logout(request):
-    if 'username' in request.session:
-        Session.objects.all().delete()
-        return redirect('/login/')
+    auth.logout(request)
+    messages.add_message(request, messages.INFO, '成功登出了')
     return redirect('/')
 
-
 @login_required(login_url='/login/')
-
 def userinfo(request):
     if request.user.is_authenticated:
         username = request.user.username
     try:
-        userinfo = models.User.objects.get(name=username)
+        user = User.objects.get(username=username)
+        userinfo = models.Profile.objects.get(user=user)
     except:
         pass
-
     return render(request, 'userinfo.html', locals())
