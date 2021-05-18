@@ -1,20 +1,38 @@
-<!-- index.html (ch07www project) -->
+<!-- index.html (ch09site project) -->
 {% extends "base.html" %}
 {% block title %}分享日記{% endblock %}
 {% block content %}
 <div class='container'>
 {% for message in messages %}
-    <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+    <div class='alert alert-{{message.tags}}'>{{ message }}</div>
 {% endfor %}
 <div class='row'>
     <div class='col-md-12'>
         <div class='panel panel-default'>
             <div class='panel-heading' align=center>
-            <h3>我的私人日記</h3>
+                <h3>{{ username | default:"我"}}的私人日記</h3>
+            </div>
+        </div>
     </div>
 </div>
-{% if username %}
-    歡迎: {{ username }}
-{% endif %}
-    </div></div></div>
+    {% for diary in diaries %}
+    {% cycle "<div class='row'>" "" "" %}
+        <div class='col-md-4'>
+            <div class='panel panel-primary'>
+                <div class='panel-heading' align=center>
+                    {{ diary.ddate }}
+                </div>
+                <div class='panel-body'>
+                    {{ diary.note | linebreaks }}
+                </div>
+                <div class='panel-footer'>
+                    今日花費：{{ diary.budget }}元，體重：{{ diary.weight }}公斤
+                </div>
+            </div>
+        </div>
+    {% cycle "" "" "</div>" %}
+    {% empty %}
+        <h3><em>登入網站才能夠使用日記功能</em></h3>
+    {% endfor %}
+</div>
 {% endblock %}
